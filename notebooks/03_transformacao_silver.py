@@ -1,7 +1,7 @@
 # Databricks notebook source
 # Notebook: Transformação Silver
 # Objetivo: Limpeza e transformação dos dados
-Use vendas.csv
+# Use vendas.csv
 Use clientes.csv
 Use produtos.csv
 
