@@ -11,20 +11,32 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.12'
 
-    - name: Install Databricks CLI and JQ
+    - name: Install Databricks CLI and jq
       run: |
         python -m pip install --upgrade pip
-        pip install databricks-cli jq
+        pip install databricks-cli
+        sudo apt-get update
+        sudo apt-get install -y jq
+
+    - name: Validate Databricks secrets
+      env:
+        DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+        DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+      run: |
+        if [ -z "${DATABRICKS_HOST}" ] || [ -z "${DATABRICKS_TOKEN}" ]; then
+          echo "Erro: DATABRICKS_HOST ou DATABRICKS_TOKEN não configurados nos segredos do repositório."
+          exit 1
+        fi
+        echo "Segredos do Databricks presentes. Prosseguindo com o deploy."
 
     - name: Deploy notebooks and libs to Databricks
-      # Configura as credenciais via variáveis de ambiente, o método preferido.
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
@@ -37,47 +49,56 @@ jobs:
         echo "Deploy de notebooks e libs concluído."
 
     - name: Deploy cluster
-      # Reutiliza as credenciais
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
-        CLUSTER_NAME=$(jq -r '.cluster_name' databricks/config/cluster_template.json)
-        # Tenta encontrar o ID do cluster existente
+        set -e
+        TEMPLATE=databricks/config/cluster_template.json
+        if [ ! -f "$TEMPLATE" ]; then
+          echo "Erro: arquivo $TEMPLATE não encontrado."
+          exit 1
+        fi
+
+        CLUSTER_NAME=$(jq -r '.cluster_name' "$TEMPLATE")
+        if [ -z "$CLUSTER_NAME" ] || [ "$CLUSTER_NAME" = "null" ]; then
+          echo "Erro: cluster_name ausente em $TEMPLATE."
+          exit 1
+        fi
+
         CLUSTER_ID=$(databricks clusters list --output JSON 2>/dev/null | jq -r ".clusters[] | select(.cluster_name==\"$CLUSTER_NAME\") | .cluster_id")
 
         if [ -z "$CLUSTER_ID" ]; then
           echo "Cluster '$CLUSTER_NAME' não existe, criando..."
-          databricks clusters create --json-file databricks/config/cluster_template.json
+          databricks clusters create --json-file "$TEMPLATE"
         else
-          echo "Cluster '$CLUSTER_NAME' já existe (ID: $CLUSTER_ID). Nenhuma atualização automática de configuração aplicada."
+          echo "Cluster '$CLUSTER_NAME' já existe (ID: $CLUSTER_ID). Nenhuma atualização automática aplicada."
+          # Observação: clusters edit requer 'cluster_id' no payload; se quiser editar, monte o JSON incluindo esse ID.
         fi
 
     - name: Deploy job pipeline
-      # Reutiliza as credenciais
       env:
         DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
         DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
       run: |
+        set -e
         JOB_NAME="job-pipeline-versaCodigo"
-        # Tenta encontrar o ID do job existente
+        JOB_SPEC=jobs/job_pipeline.json
+
+        if [ ! -f "$JOB_SPEC" ]; then
+          echo "Erro: arquivo $JOB_SPEC não encontrado."
+          exit 1
+        fi
+
         JOB_ID=$(databricks jobs list --output JSON 2>/dev/null | jq -r ".jobs[] | select(.settings.name==\"$JOB_NAME\") | .job_id")
 
         if [ -z "$JOB_ID" ]; then
           echo "Job '$JOB_NAME' não existe, criando..."
-          # Assume que o jobs/job_pipeline.json é o arquivo para a criação
-          databricks jobs create --json-file jobs/job_pipeline.json
+          databricks jobs create --json-file "$JOB_SPEC"
         else
-          echo "Job '$JOB_NAME' já existe (ID: $JOB_ID). Atualizando o job existente."
-          # A maneira padrão de atualizar um job existente é usar jobs update
-          # Nota: 'jobs update' espera um JSON com o campo 'job_id' e o campo 'new_settings'.
-          # Uma abordagem mais simples é usar 'jobs reset' se o arquivo 'jobs/job_pipeline.json' contiver todas as configurações.
-          # Vamos usar a lógica mais robusta de 'update' se o job_pipeline.json for o corpo completo da configuração:
-          
-          # 1. Cria um arquivo temporário com a estrutura correta para o update (ID + Settings)
-          jq --arg id "$JOB_ID" '. | {job_id: ($id | tonumber), new_settings: .}' jobs/job_pipeline.json > job_update_payload.json
-          
-          # 2. Executa o update
+          echo "Job '$JOB_NAME' já existe (ID: $JOB_ID). Atualizando..."
+          # Cria payload para 'jobs update': { job_id, new_settings }
+          jq --arg id "$JOB_ID" '. | {job_id: ($id | tonumber), new_settings: .}' "$JOB_SPEC" > job_update_payload.json
           databricks jobs update --json-file job_update_payload.json
           echo "Job '$JOB_NAME' atualizado com sucesso."
         fi
