@@ -3,30 +3,26 @@ name: CD
 on:
   push:
     branches: [ main ]
-  workflow_dispatch:  # permite rodar manualmente
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout do código
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # 2. Configuração do Python
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.12'
 
-    # 3. Instalação do Databricks CLI
     - name: Install Databricks CLI
       run: |
         python -m pip install --upgrade pip
         pip install databricks-cli jq
 
-    # 4. Configuração do Databricks CLI
     - name: Configure Databricks CLI
       run: |
         mkdir -p ~/.databricks
@@ -36,13 +32,11 @@ jobs:
         token = ${{ secrets.DATABRICKS_TOKEN }}
         EOF
 
-    # 5. Deploy dos notebooks e libs
     - name: Deploy notebooks and libs to Databricks
       run: |
         databricks workspace import_dir notebooks /Projects/versaCodigoNotebookAzure/notebooks --overwrite
         databricks workspace import_dir libs /Projects/versaCodigoNotebookAzure/libs --overwrite
 
-    # 6. Deploy do cluster
     - name: Deploy cluster
       run: |
         CLUSTER_NAME=$(jq -r '.cluster_name' databricks/config/cluster_template.json)
@@ -52,11 +46,9 @@ jobs:
           echo "Cluster não existe, criando..."
           databricks clusters create --json-file databricks/config/cluster_template.json
         else
-          echo "Cluster já existe (ID: $CLUSTER_ID), atualizando..."
-          databricks clusters edit --json-file databricks/config/cluster_template.json
+          echo "Cluster já existe (ID: $CLUSTER_ID). Nenhuma atualização automática aplicada."
         fi
 
-    # 7. Deploy do job pipeline
     - name: Deploy job pipeline
       run: |
         JOB_NAME="job-pipeline-versaCodigo"
@@ -66,6 +58,5 @@ jobs:
           echo "Job não existe, criando..."
           databricks jobs create --json-file jobs/job_pipeline.json
         else
-          echo "Job já existe (ID: $JOB_ID), atualizando..."
-          databricks jobs reset --job-id $JOB_ID --json-file jobs/job_pipeline.json
+          echo "Job já existe (ID: $JOB_ID). Atualização manual recomendada."
         fi
