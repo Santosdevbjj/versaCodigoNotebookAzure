@@ -1,0 +1,12 @@
+# Pipeline CD
+# Objetivo: Deploy de notebooks e jobs
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo "Deploy notebooks para Databricks"
+  displayName: 'Deploy'
