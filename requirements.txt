@@ -1,0 +1,22 @@
+# Dependências principais para produção
+
+# Spark e Databricks
+pyspark==3.5.1
+databricks-cli==0.18.0
+
+# Manipulação de dados
+pandas==2.2.3
+numpy==2.1.2
+
+# Utilitários
+requests==2.32.3
+
+# Se usar integração com Azure
+azure-storage-blob==12.23.1
+azure-identity==1.17.1
+
+# Se usar integração com AWS (opcional)
+boto3==1.35.50
+
+# Se usar integração com Google Cloud (opcional)
+google-cloud-storage==2.18.2
