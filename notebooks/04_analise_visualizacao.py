@@ -1,7 +1,7 @@
 # Databricks notebook source
 # Notebook: Análise e Visualização
 # Objetivo: Criar gráficos e sumarizações
-
+ 
 # MAGIC %md
 # MAGIC ## Análise e Visualização
 # MAGIC Exemplo de agregações e gráficos.
