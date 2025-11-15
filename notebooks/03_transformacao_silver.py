@@ -1,6 +1,9 @@
 # Databricks notebook source
 # Notebook: Transformação Silver
 # Objetivo: Limpeza e transformação dos dados
+Use vendas.csv
+Use clientes.csv
+Use produtos.csv
 
 from pyspark.sql import functions as F
 
@@ -18,3 +21,14 @@ df_silver = (
 
 df_silver.createOrReplaceTempView("silver_table")
 display(df_silver)
+
+df_vendas = spark.read.csv("tests/data/vendas.csv", header=True, inferSchema=True)
+df_clientes = spark.read.csv("tests/data/clientes.csv", header=True, inferSchema=True)
+df_produtos = spark.read.csv("tests/data/produtos.csv", header=True, inferSchema=True)
+
+df_silver = (
+    df_vendas
+    .join(df_clientes, "id_cliente")
+    .join(df_produtos, "id_produto")
+)
+display(df_silver) 
