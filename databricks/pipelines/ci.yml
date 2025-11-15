@@ -1,0 +1,18 @@
+# Pipeline CI
+# Objetivo: Lint, testes e validação de notebooks
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: pip install flake8 pytest
+  displayName: 'Instalar dependências'
+
+- script: flake8 libs/
+  displayName: 'Lint'
+
+- script: pytest tests/
+  displayName: 'Testes unitários'
