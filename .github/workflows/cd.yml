@@ -3,11 +3,47 @@ name: CD
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:  # permite rodar manualmente
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Deploy notebooks
-      run: echo "Deploy notebooks para Databricks"
+    # 1. Checkout do código
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    # 2. Configuração do Python
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+
+    # 3. Instalação do Databricks CLI
+    - name: Install Databricks CLI
+      run: |
+        python -m pip install --upgrade pip
+        pip install databricks-cli
+
+    # 4. Configuração do Databricks CLI
+    - name: Configure Databricks CLI
+      run: |
+        mkdir -p ~/.databricks
+        cat <<EOF > ~/.databricks/config
+        [DEFAULT]
+        host = ${{ secrets.DATABRICKS_HOST }}
+        token = ${{ secrets.DATABRICKS_TOKEN }}
+        EOF
+
+    # 5. Deploy dos notebooks
+    - name: Deploy notebooks to Databricks
+      run: |
+        databricks workspace import_dir notebooks /Projects/versaCodigoNotebookAzure/notebooks --overwrite
+        databricks workspace import_dir libs /Projects/versaCodigoNotebookAzure/libs --overwrite
+
+    # 6. Deploy de jobs
+    - name: Deploy job pipeline
+      run: |
+        databricks jobs create --json-file jobs/job_pipeline.json || \
+        databricks jobs reset --job-id $(databricks jobs list --output JSON | jq -r '.jobs[] | select(.settings.name=="job-pipeline-versaCodigo") | .job_id') --json-file jobs/job_pipeline.json
