@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: minha_app
+    restart: always
+    depends_on:
+      - db
+      - redis
+    environment:
+      # Variáveis de ambiente da aplicação
+      DATABASE_URL: postgres://user:password@db:5432/minha_base
+      REDIS_URL: redis://redis:6379/0
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "8080:8080"   # expõe a aplicação na porta 8080
+    volumes:
+      - .:/app        # monta o código local (útil em desenvolvimento)
+
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: minha_base
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
