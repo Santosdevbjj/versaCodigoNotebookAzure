@@ -42,7 +42,21 @@ jobs:
         databricks workspace import_dir notebooks /Projects/versaCodigoNotebookAzure/notebooks --overwrite
         databricks workspace import_dir libs /Projects/versaCodigoNotebookAzure/libs --overwrite
 
-    # 6. Deploy do job pipeline
+    # 6. Deploy do cluster
+    - name: Deploy cluster
+      run: |
+        CLUSTER_NAME=$(jq -r '.cluster_name' databricks/config/cluster_template.json)
+        CLUSTER_ID=$(databricks clusters list --output JSON | jq -r ".clusters[] | select(.cluster_name==\"$CLUSTER_NAME\") | .cluster_id")
+
+        if [ -z "$CLUSTER_ID" ]; then
+          echo "Cluster não existe, criando..."
+          databricks clusters create --json-file databricks/config/cluster_template.json
+        else
+          echo "Cluster já existe (ID: $CLUSTER_ID), atualizando..."
+          databricks clusters edit --json-file databricks/config/cluster_template.json
+        fi
+
+    # 7. Deploy do job pipeline
     - name: Deploy job pipeline
       run: |
         JOB_NAME="job-pipeline-versaCodigo"
