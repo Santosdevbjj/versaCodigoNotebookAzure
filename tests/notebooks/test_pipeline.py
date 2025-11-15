@@ -1,6 +1,7 @@
 # Databricks notebook source
 # Notebook de Teste End-to-End
-# Objetivo: Demonstrar ingestão (bronze), transformação (silver) e análise (visualização)
+# Objetivo: Demonstrar ingestão (bronze), transformação (silver)
+# e análise (visualização)
 # Dataset: tests/data/vendas.csv, clientes.csv, produtos.csv
 
 from pyspark.sql import SparkSession
