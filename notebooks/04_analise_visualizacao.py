@@ -9,7 +9,9 @@
 df_silver = spark.table("silver_table")
 
 df_summary = df_silver.groupBy("categoria").count()
-display(df_summary)
+display(df_summary) 
+
+df_silver.groupBy("cidade").agg({"valor":"sum"}).show()
 
 # Gráfico de barras
 display(df_summary)
