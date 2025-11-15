@@ -1,0 +1,20 @@
+[flake8]
+# Máximo de caracteres por linha
+max-line-length = 88
+
+# Ignorar regras que conflitam com o black
+extend-ignore = E203, W503
+
+# Diretórios a verificar
+exclude =
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .venv,
+    venv,
+    .eggs,
+    *.egg
+
+# Mostrar estatísticas
+statistics = True
