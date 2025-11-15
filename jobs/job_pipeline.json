@@ -1,0 +1,16 @@
+{
+  "name": "job-pipeline-versaCodigo",
+  "tasks": [
+    {
+      "task_key": "bronze",
+      "notebook_task": { "notebook_path": "/Projects/versaCodigoNotebookAzure/notebooks/02_ingestao_bronze" },
+      "existing_cluster_id": "<cluster-id>"
+    },
+    {
+      "task_key": "silver",
+      "depends_on": [{"task_key": "bronze"}],
+      "notebook_task": { "notebook_path": "/Projects/versaCodigoNotebookAzure/notebooks/03_transformacao_silver" },
+      "existing_cluster_id": "<cluster-id>"
+    }
+  ]
+}
