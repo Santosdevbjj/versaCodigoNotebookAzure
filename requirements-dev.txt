@@ -1,0 +1,16 @@
+# Ferramentas de formatação e lint
+black==24.10.0
+isort==5.13.2
+flake8==7.1.1
+flake8-bugbear==24.10.0  # plugin para detectar padrões problemáticos
+
+# Framework de hooks
+pre-commit==4.0.1
+
+# Testes
+pytest==8.3.3
+pytest-cov==5.0.0  # opcional: gera relatório de cobertura
+
+# Utilitários extras (opcionais, mas recomendados)
+mypy==1.11.2        # checagem de tipos estática
+types-setuptools    # stubs de typing para setuptools
