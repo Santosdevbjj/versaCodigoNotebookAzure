@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  app:
+    # Em desenvolvimento, montamos o código local e habilitamos hot-reload
+    volumes:
+      - .:/app
+      - /app/__pycache__  # evita cache de bytecode poluindo o host
+    environment:
+      DEBUG: "true"
+      PYTHONUNBUFFERED: 1
+      PYTHONDONTWRITEBYTECODE: 1
+    command: >
+      sh -c "pip install watchdog[watchmedo] &&
+             watchmedo auto-restart --directory=/app --pattern=*.py --recursive -- python main.py"
+    ports:
+      - "8080:8080"
