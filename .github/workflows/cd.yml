@@ -24,7 +24,7 @@ jobs:
     - name: Install Databricks CLI
       run: |
         python -m pip install --upgrade pip
-        pip install databricks-cli
+        pip install databricks-cli jq
 
     # 4. Configuração do Databricks CLI
     - name: Configure Databricks CLI
@@ -36,14 +36,22 @@ jobs:
         token = ${{ secrets.DATABRICKS_TOKEN }}
         EOF
 
-    # 5. Deploy dos notebooks
-    - name: Deploy notebooks to Databricks
+    # 5. Deploy dos notebooks e libs
+    - name: Deploy notebooks and libs to Databricks
       run: |
         databricks workspace import_dir notebooks /Projects/versaCodigoNotebookAzure/notebooks --overwrite
         databricks workspace import_dir libs /Projects/versaCodigoNotebookAzure/libs --overwrite
 
-    # 6. Deploy de jobs
+    # 6. Deploy do job pipeline
     - name: Deploy job pipeline
       run: |
-        databricks jobs create --json-file jobs/job_pipeline.json || \
-        databricks jobs reset --job-id $(databricks jobs list --output JSON | jq -r '.jobs[] | select(.settings.name=="job-pipeline-versaCodigo") | .job_id') --json-file jobs/job_pipeline.json
+        JOB_NAME="job-pipeline-versaCodigo"
+        JOB_ID=$(databricks jobs list --output JSON | jq -r ".jobs[] | select(.settings.name==\"$JOB_NAME\") | .job_id")
+
+        if [ -z "$JOB_ID" ]; then
+          echo "Job não existe, criando..."
+          databricks jobs create --json-file jobs/job_pipeline.json
+        else
+          echo "Job já existe (ID: $JOB_ID), atualizando..."
+          databricks jobs reset --job-id $JOB_ID --json-file jobs/job_pipeline.json
+        fi
