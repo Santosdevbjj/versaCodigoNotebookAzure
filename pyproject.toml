@@ -1,6 +1,7 @@
 [tool.black]
+# Compatível com PEP 8 e padrão do Black
 line-length = 88
-target-version = ['py310']
+target-version = ["py312"]
 skip-string-normalization = false
 include = '\.pyi?$'
 exclude = '''
@@ -11,9 +12,38 @@ exclude = '''
   | build
   | dist
   | __pycache__
+  | \.eggs
+  | \.egg-info
 )/
 '''
 
 [tool.isort]
+# Integração com Black
 profile = "black"
 line_length = 88
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+skip_gitignore = true
+
+[tool.flake8]
+# Compatível com Black e Isort
+max-line-length = 88
+extend-ignore = [
+    "E203",  # compatibilidade com Black
+    "W503",  # compatibilidade com Black
+    "F821",  # ignora nomes não definidos (dbutils, spark, display em notebooks Databricks)
+    "W391"   # ignora linha em branco no final do arquivo
+]
+exclude = [
+    ".git",
+    "__pycache__",
+    "build",
+    "dist",
+    ".venv",
+    "venv",
+    ".eggs",
+    "*.egg-info"
+]
+select = ["E", "F", "W", "B"]
