@@ -15,3 +15,15 @@ jobs:
       run: flake8 libs/
     - name: Test
       run: pytest tests/
+
+- name: Instalar dependências
+  run: pip install flake8 black isort pytest
+
+- name: Verificar formatação com black
+  run: black --check .
+
+- name: Verificar imports com isort
+  run: isort --check-only .
+
+- name: Lint com flake8
+  run: flake8 .
