@@ -1,16 +1,21 @@
+# Configuração do pre-commit para rodar black, isort e flake8
+
 repos:
+  # Black - formata automaticamente o código
   - repo: https://github.com/psf/black
     rev: 24.10.0  # versão estável do black
     hooks:
       - id: black
         language_version: python3.12
 
+  # Isort - organiza automaticamente os imports
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2  # versão estável do isort
     hooks:
       - id: isort
         language_version: python3.12
 
+  # Flake8 - valida estilo e possíveis erros
   - repo: https://github.com/pycqa/flake8
     rev: 7.1.1  # versão estável do flake8
     hooks:
