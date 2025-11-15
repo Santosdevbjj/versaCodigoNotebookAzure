@@ -1,0 +1,10 @@
+{
+  "name": "template-job",
+  "tasks": [
+    {
+      "task_key": "example",
+      "notebook_task": { "notebook_path": "/Repos/user/repo/notebooks/example" },
+      "existing_cluster_id": "<cluster-id>"
+    }
+  ]
+}
