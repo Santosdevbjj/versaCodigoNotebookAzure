@@ -27,13 +27,13 @@ O projeto foi estruturado para refletir boas práticas reais de mercado, comuns 
 
 Em grandes organizações, é comum encontrar:
 
-Notebooks sem versionamento claro
+• Notebooks sem versionamento claro
 
-Lógicas de negócio espalhadas em células
+• Lógicas de negócio espalhadas em células
 
-Execuções manuais e pouco rastreáveis
+• Execuções manuais e pouco rastreáveis
 
-Baixa testabilidade e reutilização de código
+• Baixa testabilidade e reutilização de código
 
 
 Esse cenário, conhecido informalmente como “caos de notebooks”, dificulta manutenção, auditoria e evolução das soluções de dados.
@@ -67,17 +67,17 @@ Explorar o uso de IA Generativa integrada ao Databricks como apoio técnico
 
 Algumas decisões foram fundamentais para a qualidade do projeto:
 
-Arquitetura Medalhão (Bronze, Silver, Gold)
+**Arquitetura Medalhão (Bronze, Silver, Gold)**
 Utilizada para garantir linhagem dos dados, separação de responsabilidades e evolução controlada.
 
-Separação de Lógica (Notebooks vs. Libs)
+**Separação de Lógica (Notebooks vs. Libs)**
 A lógica de negócio foi extraída para bibliotecas Python reutilizáveis (libs/), deixando os notebooks responsáveis apenas pela orquestração.
 Isso facilita testes unitários, manutenção e reutilização.
 
-CI/CD com GitHub Actions
+**CI/CD com GitHub Actions**
 Implementado para garantir que apenas códigos validados por lint e testes sejam promovidos, aproximando o projeto de um ambiente produtivo real.
 
-Integração com Azure Storage (Data Lake)
+**Integração com Azure Storage (Data Lake)**
 Simula um cenário real de Big Data, garantindo escalabilidade e aderência a arquiteturas modernas.
 
 
@@ -229,9 +229,9 @@ docker-compose up -d
 
 **A execução pode ocorrer:**
 
-via Job configurado no Databricks
+• via Job configurado no Databricks
 
-ou via script orquestrador de notebooks
+• ou via script orquestrador de notebooks
 
 
 
