@@ -219,10 +219,13 @@ O pipeline é executado via Jobs do Azure Databricks, utilizando notebooks organ
 
 **Execução local**
 
+```
 git clone https://github.com/seu-org/seu-repo.git
 cd seu-repo
 pip install -r requirements-dev.txt
 docker-compose up -d
+```
+
 
 **A execução pode ocorrer:**
 
