@@ -260,13 +260,13 @@ O maior desafio foi adaptar a mentalidade de sistemas críticos, onde o erro nã
 
 🔮 **Próximos Passos**
 
-Orquestração externa com Azure Data Factory
+• Orquestração externa com Azure Data Factory
 
-Observabilidade e monitoramento da qualidade dos dados
+• Observabilidade e monitoramento da qualidade dos dados
 
-Inclusão de modelos de Machine Learning na camada Gold
+• Inclusão de modelos de Machine Learning na camada Gold
 
-Execução totalmente automatizada e agendada
+• Execução totalmente automatizada e agendada
 
 
 
@@ -277,7 +277,7 @@ Execução totalmente automatizada e agendada
 
 Este projeto representa um laboratório prático de engenharia de dados em Azure, estruturado com mentalidade corporativa e foco em governança, qualidade e automação.
 
-Embora tenha sido desenvolvido em contexto educacional, ele foi desenvolvido para refletir cenários reais de mercado, aproximando estudos acadêmicos da prática profissional.
+Embora tenha sido desenvolvido em contexto educacional, o projeto foi estruturado para refletir cenários reais de mercado, aproximando estudos acadêmicos da prática profissional.
 
 
 
