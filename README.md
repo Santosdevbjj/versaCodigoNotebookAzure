@@ -18,6 +18,8 @@ Mais do que executar notebooks, a solução demonstra como aplicar Governança d
 
 O projeto foi estruturado para refletir boas práticas reais de mercado, comuns em instituições financeiras e ambientes regulados.
 
+> Este projeto não tem como foco apenas executar dados, mas demonstrar como dados devem ser tratados em ambientes corporativos modernos.
+
 
 ---
 
