@@ -1,94 +1,144 @@
-### Controle e Versionamento de Código no Notebook da Azure
+### Controle e Versionamento de Código no Notebook da Azure Databricks 
 
 ![Azure_Databricks01](https://github.com/user-attachments/assets/d30d3cd1-7b30-4247-8f19-a9d9941c9c8b) 
 
 
 **Bootcamp Microsoft AI for Tech - Azure Databricks**  
 
---- 
 
-**DESCRIÇÃO:**
+---
 
-Este projeto demonstra como utilizar o Azure Databricks para versionamento e organização de notebooks em ambientes de dados.
+**Azure Databricks — Engenharia de Dados e Governança de Notebooks em Cloud**
 
-A proposta inclui a criação de clusters, importação de arquivos, execução de notebooks com auxílio de inteligência artificial, além da integração com Azure DevOps para controle de código e automação de esteiras de CI/CD.
+📋 **Visão Geral**
 
-É apresentado o uso prático da IA integrada ao Databricks para geração de código em Python e Spark, facilitando a criação de notebooks interativos com filtros, sumarizações, visualizações e comentários explicativos.
+Este projeto estabelece um padrão corporativo para organização, versionamento e execução de pipelines de dados no ambiente Azure Databricks.
 
-Também são exploradas boas práticas de organização, exportação e reaproveitamento de notebooks, bem como o uso de recursos do Microsoft Learn, que oferecem exercícios guiados e roteiros de aprendizado.
+Mais do que executar notebooks, a solução demonstra como aplicar Governança de Dados, DataOps e Arquitetura Medalhão (Bronze, Silver e Gold), simulando um ambiente de missão crítica, onde rastreabilidade, automação e confiabilidade são requisitos essenciais.
 
-A abordagem permite trabalhar de forma colaborativa, segura e com versionamento estruturado em ambientes de análise, engenharia de dados e machine learning dentro da plataforma Azure.
+O projeto foi estruturado para refletir boas práticas reais de mercado, comuns em instituições financeiras e ambientes regulados.
 
 
 ---
 
+🎯 **Problema que o Projeto Resolve**
 
-📘 **Projeto VersaCódigo Notebook Azure + Databricks**
+Em grandes organizações, é comum encontrar:
 
-Este repositório contém um pipeline completo de engenharia de dados utilizando Azure Databricks, PySpark, CI/CD com GitHub Actions e boas práticas de desenvolvimento Python (lint, testes, formatação automática).  
+Notebooks sem versionamento claro
 
-O objetivo é provisionar clusters, ingerir dados em camadas (bronze, silver, gold), aplicar transformações e análises, além de garantir qualidade e automação via testes e pipelines.
+Lógicas de negócio espalhadas em células
+
+Execuções manuais e pouco rastreáveis
+
+Baixa testabilidade e reutilização de código
+
+
+Esse cenário, conhecido informalmente como “caos de notebooks”, dificulta manutenção, auditoria e evolução das soluções de dados.
+
+Este projeto demonstra como tratar código de dados com o mesmo rigor de um software corporativo, reduzindo riscos operacionais e aumentando a confiabilidade dos pipelines.
+
+
+---
+
+🎯 **Objetivo do Projeto**
+
+Com base na minha experiência de mais de 15 anos em sistemas críticos bancários, desenvolvi este projeto com os seguintes objetivos:
+
+Consolidar a atuação prática como profissional de dados em cloud
+
+Demonstrar engenharia de dados estruturada em Azure Databricks
+
+Aplicar governança e rastreabilidade em pipelines analíticos
+
+Implementar práticas de DataOps e CI/CD
+
+Diferenciar notebooks exploratórios de notebooks corporativos
+
+Explorar o uso de IA Generativa integrada ao Databricks como apoio técnico
+
+
+
+---
+
+🛠 **Decisões Técnicas**
+
+Algumas decisões foram fundamentais para a qualidade do projeto:
+
+Arquitetura Medalhão (Bronze, Silver, Gold)
+Utilizada para garantir linhagem dos dados, separação de responsabilidades e evolução controlada.
+
+Separação de Lógica (Notebooks vs. Libs)
+A lógica de negócio foi extraída para bibliotecas Python reutilizáveis (libs/), deixando os notebooks responsáveis apenas pela orquestração.
+Isso facilita testes unitários, manutenção e reutilização.
+
+CI/CD com GitHub Actions
+Implementado para garantir que apenas códigos validados por lint e testes sejam promovidos, aproximando o projeto de um ambiente produtivo real.
+
+Integração com Azure Storage (Data Lake)
+Simula um cenário real de Big Data, garantindo escalabilidade e aderência a arquiteturas modernas.
+
+
+Essas escolhas priorizam clareza, qualidade, rastreabilidade e escalabilidade, mesmo em um projeto educacional.
+
 
 ---
 
 🚀 **Tecnologias Utilizadas**
 
-- Python 3.12  
-- PySpark para processamento distribuído  
-- Databricks para execução de notebooks e jobs  
-- Azure Storage para persistência de dados  
-- GitHub Actions para CI/CD  
-- Docker + Docker Compose para containerização  
-- Pre-commit hooks (Black, Isort, Flake8) para padronização de código  
-- Pytest para testes automatizados  
+**Plataforma Cloud:** Azure Databricks, Azure Storage
+
+**Linguagem & Processamento:** Python 3.12+, PySpark
+
+**Arquitetura de Dados:** Arquitetura Medalhão, Delta Lake
+
+**Qualidade & DevOps:**
+
+GitHub Actions (CI/CD)
+
+Pytest
+
+Docker e Docker Compose
+
+Black e Flake8
+
+
+**IA Aplicada:** Uso de IA para otimização de funções PySpark e geração de documentação técnica dinâmica.
+
+
+
+
 
 ---
 
 💻 **Requisitos de Hardware e Software**
 
-- **Hardware mínimo:**
-  - CPU: 4 cores
-  - RAM: 8 GB
-  - Armazenamento: 10 GB livres
+**Hardware mínimo recomendado**
 
-- **Software:**
-  - Python 3.12+
-  - Docker e Docker Compose
-  - Git
-  - Conta no Azure Databricks configurada
+• CPU: 4 cores
 
----
+• Memória RAM: 8 GB
 
-⚙️ **Configurações Necessárias**
+• Armazenamento: 10 GB livres
 
-**1. Instalar dependências de produção:**
-   `bash
-   pip install -r requirements.txt
-   `
 
-**2. Instalar dependências de desenvolvimento:**
-   `bash
-   pip install -r requirements-dev.txt
-   `
+**Software**
 
-**3. Configurar pre-commit hooks:**
-   `bash
-   pre-commit install
-   `
+• Python 3.12 ou superior
 
-**4. Executar localmente com Docker:**
-   `bash
-   docker-compose up -d
-   `
+• Docker e Docker Compose
 
-**5. Rodar testes:**
-   `bash
-   pytest
-   `
+• Git
+
+• Conta ativa no Azure Databricks
+
+
 
 ---
 
 📂 **Estrutura do Repositório**
+
+O repositório foi organizado para facilitar auditoria técnica, manutenção e escalabilidade:
 
 
 
@@ -96,104 +146,134 @@ O objetivo é provisionar clusters, ingerir dados em camadas (bronze, silver, go
 
 
 
----
 
-📖 **Explicação Detalhada das Pastas e Arquivos**
+📒 **notebooks/**
 
-📒 **Notebooks**
-- **01provisionamentocluster.py** → script para provisionar cluster Databricks.  
-- **02ingestaobronze.py** → ingestão inicial dos dados na camada bronze.  
-- **03transformacaosilver.py** → transformação e limpeza dos dados para camada silver.  
-- **04analisevisualizacao.py** → análises exploratórias e visualizações.  
-- **runner_pipeline.py** → orquestra execução sequencial dos notebooks.  
+Fluxos principais do pipeline:
 
-📚 **Libs**
-- **io_utils.py** → funções utilitárias de leitura/escrita de dados.  
-- **spark_session.py** → inicialização e configuração da sessão Spark.  
-- **validation.py** → funções de validação de dados e schemas.  
-- **__init__.py** → torna a pasta um pacote Python.  
+Provisionamento de clusters
 
-⚙️ **Jobs**
-- **job_pipeline.json** → definição de job Databricks para rodar o pipeline.  
+Ingestão de dados (Bronze)
 
-☁️ **Databricks**
-- **pipelines/ci.yml** → pipeline de integração contínua no Databricks.  
-- **pipelines/cd.yml** → pipeline de entrega contínua no Databricks.  
-- **workspace_export/notebooks.dbc** → exportação dos notebooks em formato Databricks.  
-- **config/cluster_template.json** → template de configuração de cluster.  
-- **config/job_template.json** → template de configuração de job.  
+Transformação e limpeza (Silver)
 
-🔄 **GitHub Actions**
-- **.github/workflows/ci.yml** → pipeline de CI (lint, testes, build).  
-- **.github/workflows/cd.yml** → pipeline de CD (deploy).  
+Análises e agregações (Gold)
 
-📑 **Documentação**
-- **guianomenclaturaazure.md** → guia de boas práticas de nomenclatura no Azure.  
-- **imagens/** → diagramas e prints do portal Azure e Databricks.  
 
-🧪 **Testes**
-- **testioutils.py** → testa funções de leitura/escrita.  
-- **testsparksession.py** → testa inicialização da sessão Spark.  
-- **test_validation.py** → testa funções de validação.  
-- **notebooks/test_pipeline.py** → testa execução do pipeline de notebooks.  
-- **data/** → arquivos CSV de exemplo (vendas, clientes, produtos).  
+📚 **libs/**
 
-🛠️ **Configuração e Build**
-- **.gitignore** → arquivos ignorados pelo Git.  
-- **.flake8** → configuração de lint.  
-- pyproject.toml → configurações unificadas (Black, Isort, Flake8).  
-- **setup.cfg** → configurações adicionais do Flake8.  
-- **requirements.txt** → dependências de produção.  
-- **requirements-dev.txt** → dependências de desenvolvimento.  
-- **Makefile** → comandos automatizados (formatar, lint, testes).  
-- **format.sh** → script para rodar Black, Isort e Flake8.  
-- **.git/hooks/pre-commit** → hook local para rodar format.sh antes do commit.  
-- **.pre-commit-config.yaml** → configuração do pre-commit framework.  
+Bibliotecas Python reutilizáveis:
 
-🐳 **Containerização**
-- **Dockerfile** → imagem otimizada de produção.  
-- **docker-compose.yml** → orquestração de app + banco + cache em produção.  
-- **docker-compose.override.yml** → configuração extra para desenvolvimento (hot-reload, debug).  
+Inicialização da Spark Session
 
----
+Funções de leitura e escrita
 
-🎯 **Como Executar o Projeto**
+Validações de schema e qualidade de dados
 
-**1. Clonar repositório:**
-   `bash
-   git clone https://github.com/seu-org/seu-repo.git
-   cd seu-repo
-   `
 
-**2. Instalar dependências:**
-   `bash
-   pip install -r requirements-dev.txt
-   `
+⚙️ **jobs/**
 
-**3. Rodar pre-commit hooks:**
-   `bash
-   pre-commit run --all-files
-   `
+Definições de Jobs do Azure Databricks para execução automatizada dos pipelines
 
-**4. Subir ambiente com Docker Compose:**
-   `bash
-   docker-compose up -d
-   `
 
-**5. Executar pipeline:**
-   - Via Databricks job (jobs/job_pipeline.json).  
-   - Ou localmente com:
-     `bash
-     python notebooks/runner_pipeline.py
-     `
+🧪 **tests/**
+
+Testes automatizados das bibliotecas e validações
+
+Garantia de confiabilidade dos cálculos e transformações
+
+
+☁️ **databricks/**
+
+Templates de cluster
+
+Templates de jobs
+
+Exportação de notebooks do workspace
+
+
+🔄 **.github/workflows/**
+
+Pipelines de CI (lint, testes)
+
+Pipelines de CD (deploy automatizado)
+
+
+📄 **docs/**
+
+Guias de nomenclatura
+
+Diagramas e documentação técnica
+
+
 
 ---
 
-✅ **Conclusão**
+▶️ **Como Executar o Projeto**
 
-Este repositório fornece uma solução completa de Data Engineering com Databricks, CI/CD e boas práticas de desenvolvimento Python.
+**Execução resumida***
 
-Ele está pronto para ser usado tanto em produção quanto em desenvolvimento, com suporte a testes, lint, formatação automática e containerização.
+O pipeline é executado via Jobs do Azure Databricks, utilizando notebooks organizados por camada (Bronze, Silver e Gold), com suporte a automação via CI/CD.
+
+**Execução local**
+
+git clone https://github.com/seu-org/seu-repo.git
+cd seu-repo
+pip install -r requirements-dev.txt
+docker-compose up -d
+
+**A execução pode ocorrer:**
+
+via Job configurado no Databricks
+
+ou via script orquestrador de notebooks
+
+
+
+---
+
+🧠 **Aprendizados e Desafios**
+
+O maior desafio foi adaptar a mentalidade de sistemas críticos, onde o erro não é aceitável, à flexibilidade dos notebooks.
+
+**Os principais aprendizados foram:**
+
+A importância da separação entre lógica de negócio e orquestração
+
+Como notebooks podem ser parte de uma arquitetura robusta
+
+Aplicação real de CI/CD em projetos de dados
+
+Uso consciente de IA Generativa como acelerador técnico, e não como substituto do raciocínio
+
+
+
+---
+
+🔮 **Próximos Passos**
+
+Orquestração externa com Azure Data Factory
+
+Observabilidade e monitoramento da qualidade dos dados
+
+Inclusão de modelos de Machine Learning na camada Gold
+
+Execução totalmente automatizada e agendada
+
+
+
+---
+
+
+**Conclusão**
+
+Este projeto representa um laboratório prático de engenharia de dados em Azure, estruturado com mentalidade corporativa e foco em governança, qualidade e automação.
+
+Mesmo sendo um projeto educacional, ele foi desenvolvido para refletir cenários reais de mercado, aproximando estudos acadêmicos da prática profissional.
+
+
+
+
 
 ---
 
