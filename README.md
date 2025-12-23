@@ -55,7 +55,7 @@ Com base na minha experiência de mais de 15 anos em sistemas críticos bancári
 
 • Implementar práticas de DataOps e CI/CD
 
-•™Diferenciar notebooks exploratórios de notebooks corporativos
+• Diferenciar notebooks exploratórios de notebooks corporativos
 
 • Explorar o uso de IA Generativa integrada ao Databricks como apoio técnico
 
@@ -246,13 +246,13 @@ O maior desafio foi adaptar a mentalidade de sistemas críticos, onde o erro nã
 
 **Os principais aprendizados foram:**
 
-A importância da separação entre lógica de negócio e orquestração
+• A importância da separação entre lógica de negócio e orquestração
 
-Como notebooks podem ser parte de uma arquitetura robusta
+• Como notebooks podem ser parte de uma arquitetura robusta
 
-Aplicação real de CI/CD em projetos de dados
+• Aplicação real de CI/CD em projetos de dados
 
-Uso consciente de IA Generativa como acelerador técnico, e não como substituto do raciocínio
+• Uso consciente de IA Generativa como acelerador técnico, e não como substituto do raciocínio
 
 
 
@@ -277,7 +277,7 @@ Execução totalmente automatizada e agendada
 
 Este projeto representa um laboratório prático de engenharia de dados em Azure, estruturado com mentalidade corporativa e foco em governança, qualidade e automação.
 
-Mesmo sendo um projeto educacional, ele foi desenvolvido para refletir cenários reais de mercado, aproximando estudos acadêmicos da prática profissional.
+Embora tenha sido desenvolvido em contexto educacional, ele foi desenvolvido para refletir cenários reais de mercado, aproximando estudos acadêmicos da prática profissional.
 
 
 
