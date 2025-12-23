@@ -96,13 +96,13 @@ Essas escolhas priorizam clareza, qualidade, rastreabilidade e escalabilidade, m
 
 **Qualidade & DevOps:**
 
-GitHub Actions (CI/CD)
+• GitHub Actions (CI/CD)
 
-Pytest
+• Pytest
 
-Docker e Docker Compose
+• Docker e Docker Compose
 
-Black e Flake8
+• Black e Flake8
 
 
 **IA Aplicada:** Uso de IA para otimização de funções PySpark e geração de documentação técnica dinâmica.
@@ -213,7 +213,7 @@ Diagramas e documentação técnica
 
 ▶️ **Como Executar o Projeto**
 
-**Execução resumida***
+**Execução resumida**
 
 O pipeline é executado via Jobs do Azure Databricks, utilizando notebooks organizados por camada (Bronze, Silver e Gold), com suporte a automação via CI/CD.
 
