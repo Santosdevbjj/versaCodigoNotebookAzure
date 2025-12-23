@@ -47,17 +47,17 @@ Este projeto demonstra como tratar código de dados com o mesmo rigor de um soft
 
 Com base na minha experiência de mais de 15 anos em sistemas críticos bancários, desenvolvi este projeto com os seguintes objetivos:
 
-Consolidar a atuação prática como profissional de dados em cloud
+• Consolidar a atuação prática como profissional de dados em cloud
 
-Demonstrar engenharia de dados estruturada em Azure Databricks
+• Demonstrar engenharia de dados estruturada em Azure Databricks
 
-Aplicar governança e rastreabilidade em pipelines analíticos
+• Aplicar governança e rastreabilidade em pipelines analíticos
 
-Implementar práticas de DataOps e CI/CD
+• Implementar práticas de DataOps e CI/CD
 
-Diferenciar notebooks exploratórios de notebooks corporativos
+•™Diferenciar notebooks exploratórios de notebooks corporativos
 
-Explorar o uso de IA Generativa integrada ao Databricks como apoio técnico
+• Explorar o uso de IA Generativa integrada ao Databricks como apoio técnico
 
 
 
@@ -225,6 +225,9 @@ cd seu-repo
 pip install -r requirements-dev.txt
 docker-compose up -d
 ```
+
+
+> A execução local tem como objetivo validar bibliotecas, testes e pipelines de CI.
 
 
 **A execução pode ocorrer:**
